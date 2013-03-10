@@ -201,6 +201,58 @@ class TreeMap[A, +B] private (tree: RB.Tree[A, B])(implicit val ordering: Orderi
   override def isDefinedAt(key: A): Boolean = RB.contains(tree, key)
 
   override def foreach[U](f : ((A,B)) =>  U) = RB.foreach(tree, f)
+
+  def ceilingEntry(key: A): Option[(A, B)] = {
+    val ceiling = RB.ceiling(tree, key)
+    if (RB.isEmpty(ceiling)) None else Some((ceiling.key, ceiling.value))
+  }
+  def ceilingKey(key: A): Option[A] = {
+    val ceiling = RB.ceiling(tree, key)
+    if (RB.isEmpty(ceiling)) None else Some(ceiling.key)
+  }
+  def ceilingValue(key: A): Option[B] = {
+    val ceiling = RB.ceiling(tree, key)
+    if (RB.isEmpty(ceiling)) None else Some(ceiling.value)
+  }
+
+  def floorEntry(key: A): Option[(A, B)] = {
+    val floor = RB.floor(tree, key)
+    if (RB.isEmpty(floor)) None else Some((floor.key, floor.value))
+  }
+  def floorKey(key: A): Option[A] = {
+    val floor = RB.floor(tree, key)
+    if (RB.isEmpty(floor)) None else Some(floor.key)
+  }
+  def floorValue(key: A): Option[B] = {
+    val floor = RB.floor(tree, key)
+    if (RB.isEmpty(floor)) None else Some(floor.value)
+  }
+
+  def higherEntry(key: A): Option[(A, B)] = {
+    val higher = RB.higher(tree, key)
+    if (RB.isEmpty(higher)) None else Some((higher.key, higher.value))
+  }
+  def higherKey(key: A): Option[A] = {
+    val higher = RB.higher(tree, key)
+    if (RB.isEmpty(higher)) None else Some(higher.key)
+  }
+  def higherValue(key: A): Option[B] = {
+    val higher = RB.higher(tree, key)
+    if (RB.isEmpty(higher)) None else Some(higher.value)
+  }
+
+  def lowerEntry(key: A): Option[(A, B)] = {
+    val lower = RB.lower(tree, key)
+    if (RB.isEmpty(lower)) None else Some((lower.key, lower.value))
+  }
+  def lowerKey(key: A): Option[A] = {
+    val lower = RB.lower(tree, key)
+    if (RB.isEmpty(lower)) None else Some(lower.key)
+  }
+  def lowerValue(key: A): Option[B] = {
+    val lower = RB.lower(tree, key)
+    if (RB.isEmpty(lower)) None else Some(lower.value)
+  }
 }
 
 

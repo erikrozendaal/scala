@@ -151,4 +151,28 @@ object Test extends Properties("TreeMap") {
     val result = subject.foldLeft(subject)((acc, elt) => acc - elt._1)
     result.isEmpty
   }
+
+  property("ceiling entry/key/entry") = forAll { (subject: TreeMap[Int, String], key: Int) =>
+    subject.ceilingEntry(key) == subject.from(key).headOption &&
+      subject.ceilingKey(key) == subject.ceilingEntry(key).map(_._1) &&
+      subject.ceilingValue(key) == subject.ceilingEntry(key).map(_._2)
+  }
+
+  property("floor entry/key/entry") = forAll { (subject: TreeMap[Int, String], key: Int) =>
+    subject.floorEntry(key) == subject.to(key).lastOption &&
+      subject.floorKey(key) == subject.floorEntry(key).map(_._1) &&
+      subject.floorValue(key) == subject.floorEntry(key).map(_._2)
+  }
+
+  property("higher entry/key/entry") = forAll { (subject: TreeMap[Int, String], key: Int) =>
+    subject.higherEntry(key) == subject.from(key).dropWhile(_._1 == key).headOption &&
+      subject.higherKey(key) == subject.higherEntry(key).map(_._1) &&
+      subject.higherValue(key) == subject.higherEntry(key).map(_._2)
+  }
+
+  property("lower entry/key/value") = forAll { (subject: TreeMap[Int, String], key: Int) =>
+    subject.lowerEntry(key) == subject.until(key).lastOption &&
+      subject.lowerKey(key) == subject.lowerEntry(key).map(_._1) &&
+      subject.lowerValue(key) == subject.lowerEntry(key).map(_._2)
+  }
 }

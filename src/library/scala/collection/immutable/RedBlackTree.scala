@@ -93,6 +93,61 @@ object RedBlackTree {
     result
   }
 
+  def lower[A, B](tree: Tree[A, B], key: A)(implicit ordering: Ordering[A]): Tree[A, B] = {
+    var result: Tree[A, B] = null
+    var node = tree
+    while (node ne null) {
+      if (ordering.lt(node.key, key)) {
+        result = node
+        node = node.right
+      } else {
+        node = node.left
+      }
+    }
+    result
+  }
+
+  def floor[A, B](tree: Tree[A, B], key: A)(implicit ordering: Ordering[A]): Tree[A, B] = {
+    var result: Tree[A, B] = null
+    var node = tree
+    while (node ne null) {
+      if (ordering.lteq(node.key, key)) {
+        result = node
+        node = node.right
+      } else {
+        node = node.left
+      }
+    }
+    result
+  }
+
+  def higher[A, B](tree: Tree[A, B], key: A)(implicit ordering: Ordering[A]): Tree[A, B] = {
+    var result: Tree[A, B] = null
+    var node = tree
+    while (node ne null) {
+      if (ordering.gt(node.key, key)) {
+        result = node
+        node = node.left
+      } else {
+        node = node.right
+      }
+    }
+    result
+  }
+
+  def ceiling[A, B](tree: Tree[A, B], key: A)(implicit ordering: Ordering[A]): Tree[A, B] = {
+    var result: Tree[A, B] = null
+    var node = tree
+    while (node ne null) {
+      if (ordering.gteq(node.key, key)) {
+        result = node
+        node = node.left
+      } else {
+        node = node.right
+      }
+    }
+    result
+  }
 
   def foreach[A,B,U](tree:Tree[A,B], f:((A,B)) => U):Unit = if (tree ne null) _foreach(tree,f)
 
